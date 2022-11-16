@@ -26,7 +26,7 @@ public class TbCatDao {
         try {
             if (this.objConn != null) {
 
-                String sqlQuery = "SELECT * FROM tb_category ";
+                String sqlQuery = "SELECT * FROM SanPham ";
 
                 Statement statement = this.objConn.createStatement(); // khởi tạo cấu trúc truy vấn
 
@@ -35,8 +35,8 @@ public class TbCatDao {
                 while (resultSet.next()) { // đọc dữ liệu gán vào đối tượng và đưa vào list
 
                     TbCategory objCat = new TbCategory();
-                    objCat.setId(resultSet.getInt("id")); // truyền tên cột dữ liệu
-                    objCat.setName(resultSet.getString("name")); // tên cột dữ liệu là name
+                    objCat.setId(resultSet.getInt("id_sanpham")); // truyền tên cột dữ liệu
+                    objCat.setName(resultSet.getString("ten_sanpham")); // tên cột dữ liệu là name
 
                      listCat.add(objCat);
                 }
