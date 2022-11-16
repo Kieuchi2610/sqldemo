@@ -1,6 +1,8 @@
 package chiktmph20854.fpoly.demosql;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +12,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import chiktmph20854.fpoly.demosql.Dao.TbCatDao;
-import chiktmph20854.fpoly.demosql.Model.TbCategory;
+import chiktmph20854.fpoly.demosql.Adapter.SanPhamAdapter;
+import chiktmph20854.fpoly.demosql.Dao.TbSanPhamDao;
+import chiktmph20854.fpoly.demosql.Model.TbSanPham;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,42 +25,45 @@ public class MainActivity extends AppCompatActivity {
         // phần này thử nghiệm ở bước 8
 //        DbSqlServer dbSqlServer = new DbSqlServer();
 //        Connection conn = dbSqlServer.openConnect();
-        TbCatDao catDao = new TbCatDao();
+        TbSanPhamDao catDao = new TbSanPhamDao();
 
         //======== Thêm mới 1 dòng
-        TbCategory newObjCat = new TbCategory();
-        newObjCat.setName("Thể loại mới");
+        TbSanPham newObjCat = new TbSanPham();
+        newObjCat.setTen_sanPham("Thể loại mới");
 
         catDao.insertRow(newObjCat);
 
 
-        // Sửa dữ liệu:
-//        TbCategory objCatUpdate = new TbCategory();
-//        objCatUpdate.setId(3);
-//        objCatUpdate.setName("Dữ liệu đã sửa");
-//
-//        catDao.updateRow(objCatUpdate);
+         //Sửa dữ liệu:
+        TbSanPham objCatUpdate = new TbSanPham();
+        objCatUpdate.setId_sanPham(3);
+        objCatUpdate.setTen_sanPham("Dép bitis");
+
+        catDao.updateRow(objCatUpdate);
 
 
 
         // bước 9 thì không cần phần trên, dùng DAO để lấy dữ liệu
 
-        List<TbCategory> listCat = catDao.getAll(); // lấy danh sách cho vào biến
+        List<TbSanPham> listCat = catDao.getAll(); // lấy danh sách cho vào biến
 
         // duyệt mảng in ra danh sách
 
-        List<String> list = new ArrayList<>();
+        List<TbSanPham> list = new ArrayList<>();
 
         for(int i = 0; i<listCat.size(); i++){
-            String s = "";
-            TbCategory objCat = listCat.get(i);
-            Log.d("zzzzz", "onCreate: phần tử thứ " + i + ":  id = " + objCat.getId() + ", name = " + objCat.getName());
-            s = " id = " + objCat.getId() + ", name = " + objCat.getName();
-            list.add(s);
+            TbSanPham obj = listCat.get(i);
+            Log.i("TAG", "onCreate: "+obj.getSrcAnh());
+            list.add(new TbSanPham(obj.getTen_sanPham(),obj.getSrcAnh(),obj.getGiaNhap(),obj.getGiaBan(),obj.getTonKho()));
         }
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,list);
-        ListView lv = findViewById(R.id.lv);
-        lv.setAdapter(adapter);
 
+        // up lên rsv
+        RecyclerView rsv = findViewById(R.id.rsv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rsv.setLayoutManager(linearLayoutManager);
+
+        SanPhamAdapter adapter = new SanPhamAdapter();
+        adapter.setData(list);
+        rsv.setAdapter(adapter);
     }
 }
