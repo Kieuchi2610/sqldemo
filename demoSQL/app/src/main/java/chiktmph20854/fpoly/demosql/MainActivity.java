@@ -6,15 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import chiktmph20854.fpoly.demosql.Adapter.SanPhamAdapter;
 import chiktmph20854.fpoly.demosql.Dao.TbSanPhamDao;
-import chiktmph20854.fpoly.demosql.Model.TbSanPham;
+import chiktmph20854.fpoly.demosql.Model.TbKhachHang;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,33 +26,35 @@ public class MainActivity extends AppCompatActivity {
         TbSanPhamDao catDao = new TbSanPhamDao();
 
         //======== Thêm mới 1 dòng
-        TbSanPham newObjCat = new TbSanPham();
-        newObjCat.setTen_sanPham("Thể loại mới");
-
-        catDao.insertRow(newObjCat);
-
+//        TbSanPham newObj = new TbSanPham();
+//        newObj.setTen_sanPham("Quần kaki");
+//        newObj.setSrcAnh("https://iili.io/H95yT41.jpg");
+//        newObj.setGiaNhap(200);
+//        newObj.setGiaBan(250);
+//        newObj.setTonKho(135);
+//        newObj.setId_danhmuc(2);
+//        catDao.insertRow(newObj);
 
          //Sửa dữ liệu:
-        TbSanPham objCatUpdate = new TbSanPham();
-        objCatUpdate.setId_sanPham(3);
-        objCatUpdate.setTen_sanPham("Dép bitis");
-
-        catDao.updateRow(objCatUpdate);
+//        TbSanPham objCatUpdate = new TbSanPham();
+//        objCatUpdate.setId_sanPham(3);
+//        objCatUpdate.setTen_sanPham("Dép bitis");
+//
+//        catDao.updateRow(objCatUpdate);
 
 
 
         // bước 9 thì không cần phần trên, dùng DAO để lấy dữ liệu
 
-        List<TbSanPham> listCat = catDao.getAll(); // lấy danh sách cho vào biến
+        List<TbKhachHang> listCat = catDao.getAll(); // lấy danh sách cho vào biến
 
         // duyệt mảng in ra danh sách
 
-        List<TbSanPham> list = new ArrayList<>();
+        List<TbKhachHang> list = new ArrayList<>();
 
         for(int i = 0; i<listCat.size(); i++){
-            TbSanPham obj = listCat.get(i);
-            Log.i("TAG", "onCreate: "+obj.getSrcAnh());
-            list.add(new TbSanPham(obj.getTen_sanPham(),obj.getSrcAnh(),obj.getGiaNhap(),obj.getGiaBan(),obj.getTonKho()));
+            TbKhachHang obj = listCat.get(i);
+            list.add(new TbKhachHang(obj.getId_khachHang(),obj.getTen_khachHang(),obj.getSdt_khachHang(),obj.getDiaChi(),obj.getUserName()));
         }
 
         // up lên rsv

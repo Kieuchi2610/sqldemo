@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chiktmph20854.fpoly.demosql.DbSqlServer;
-import chiktmph20854.fpoly.demosql.Model.TbSanPham;
+import chiktmph20854.fpoly.demosql.Model.TbKhachHang;
 
 
 public class TbSanPhamDao {
@@ -19,41 +19,67 @@ public class TbSanPhamDao {
         DbSqlServer db = new DbSqlServer();
         objConn = db.openConnect();
     }
-    public List<TbSanPham> getAll(){
-        List<TbSanPham> listCat = new ArrayList<TbSanPham>();
+    public List<TbKhachHang> getAll(){
+        List<TbKhachHang> listKH = new ArrayList<>();
         try {
             if (this.objConn != null) {
-                String sqlQuery = "SELECT * FROM SanPham ";
+                String sqlQuery = "SELECT * FROM KhachHang ";
                 Statement statement = this.objConn.createStatement(); // khởi tạo cấu trúc truy vấn
                 ResultSet resultSet = statement.executeQuery(sqlQuery); // thực thi câu lệnh truy vấn
                 while (resultSet.next()) { // đọc dữ liệu gán vào đối tượng và đưa vào list
-                    TbSanPham obj = new TbSanPham();
-                    obj.setId_sanPham(resultSet.getInt("id_sanpham"));
-                    obj.setTen_sanPham(resultSet.getString("ten_sanpham"));
-                    obj.setSrcAnh(resultSet.getString("anh"));
-                    obj.setGiaBan(resultSet.getInt("giaban"));
-                    obj.setGiaNhap(resultSet.getInt("gianhap"));
-                    obj.setTonKho(resultSet.getInt("tonkho"));
-                    obj.setId_danhmuc(resultSet.getInt("id_danhmuc"));
-                    listCat.add(obj);
+                    TbKhachHang obj = new TbKhachHang();
+                    obj.setId_khachHang(resultSet.getInt("id_khachHang"));
+                    obj.setTen_khachHang(resultSet.getString("ten_khachHang"));
+                    obj.setSdt_khachHang(resultSet.getString("sdt_khachHang"));
+                    obj.setDiaChi(resultSet.getString("diaChi"));
+                    obj.setUserName(resultSet.getString("userName"));
+                    obj.setUserPass(resultSet.getString("userPass"));
+                    listKH.add(obj);
                 }
             }
         } catch (Exception e) {
             Log.i("TAG", "getAll: lỗi");
         }
 
-        return  listCat;
+        return  listKH;
     }
 
-    public void insertRow (TbSanPham objCat){
+
+    public TbKhachHang getUser(int id){
+        List<TbKhachHang> listKH = new ArrayList<>();
         try {
             if (this.objConn != null) {
-                String insertSQL = "INSERT INTO SanPham VALUES (N'" + objCat.getTen_sanPham() + "'," +
-                        "'"+ objCat.getSrcAnh()+"'," +
-                        ""+objCat.getGiaNhap()+"," +
-                        ""+objCat.getGiaBan()+"," +
-                        ""+objCat.getTonKho()+"," +
-                        ""+objCat.getId_danhmuc()+") ";
+                String sqlQuery = "SELECT * FROM KhachHang WHERE id_khachHang = "+id+"";
+                Statement statement = this.objConn.createStatement(); // khởi tạo cấu trúc truy vấn
+                ResultSet resultSet = statement.executeQuery(sqlQuery); // thực thi câu lệnh truy vấn
+                while (resultSet.next()) { // đọc dữ liệu gán vào đối tượng và đưa vào list
+                    TbKhachHang obj = new TbKhachHang();
+                    obj.setId_khachHang(resultSet.getInt("id_khachHang"));
+                    obj.setTen_khachHang(resultSet.getString("ten_khachHang"));
+                    obj.setSdt_khachHang(resultSet.getString("sdt_khachHang"));
+                    obj.setDiaChi(resultSet.getString("diaChi"));
+                    obj.setUserName(resultSet.getString("userName"));
+                    obj.setUserPass(resultSet.getString("userPass"));
+                    listKH.add(obj);
+                }
+            }
+        } catch (Exception e) {
+            Log.i("TAG", "getAll: lỗi");
+        }
+
+        return  listKH.get(0);
+    }
+
+
+
+    public void insertRow (TbKhachHang objCat){
+        try {
+            if (this.objConn != null) {
+                String insertSQL = "INSERT INTO SanPham VALUES (N'" + objCat.getTen_khachHang() + "'," +
+                        "'"+ objCat.getSdt_khachHang()+"'," +
+                        "'"+objCat.getDiaChi()+"'," +
+                        "'"+objCat.getUserName()+"'," +
+                        "'"+objCat.getUserPass()+"')";
                 String generatedColumns[] = { "ID" };
                 PreparedStatement stmtInsert = this.objConn.prepareStatement(insertSQL, generatedColumns);
                 stmtInsert.execute();
@@ -64,22 +90,23 @@ public class TbSanPhamDao {
                 }
             }
         } catch (Exception e) {
+            Log.i("TAG", "insertRow: lỗi");
         }
     }
-    public void updateRow(TbSanPham objCat){
+    public void updateRow(TbKhachHang obj){
         try {
             if (this.objConn != null) {
-                String sqlUpdate = "UPDATE SanPham SET name= N'" + objCat.getTen_sanPham() + "' WHERE id = " + objCat.getId_sanPham();
+                String sqlUpdate = "UPDATE khachHang SET ten_khachHang = N'"+obj.getTen_khachHang()+"', " +
+                                    "sdt_khachHang = '"+obj.getSdt_khachHang()+"', " +
+                                    "diaChi = N'"+obj.getDiaChi()+"', " +
+                                    "userName = '"+obj.getUserName()+"', " +
+                                    "userPass = '"+obj.getUserPass()+"' " +
+                                    "WHERE id_khachHang = "+obj.getId_khachHang()+"";
                 PreparedStatement stmt = this.objConn.prepareStatement(sqlUpdate);
                 stmt.execute(); // thực thi câu lệnh SQL
             }
         } catch (Exception e) {
+            Log.i("TAG", "updateRow: lỗi");
         }
     }
-
-//    public void deleteRow(TbSanPham obj){
-//        try {
-//            if (this.objConn )
-//        }
-//    }
 }

@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/drawable/bg_bogoc.xml" value="0.108" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/drawable/bg_bogoc_gray.xml" value="0.108" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/drawable/bg_bogoc_yellow.xml" value="0.108" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/drawable/bg_text.xml" value="0.108" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/drawable/bg_titile.xml" value="0.108" />
         <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/layout/activity_thong_tin_tai_khoan.xml" value="0.22" />
         <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/layout/sanpham_item.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Admin/Desktop/testgit/sqldemo/demoSQL/app/src/main/res/layout/them.xml" value="0.1453804347826087" />
       </map>
     </option>
   </component>
